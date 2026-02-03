@@ -64,7 +64,6 @@ ax.plot(t, S2_exact, color='red', linestyle='-', linewidth=2,
 ax.plot(t, S2_num, color='blue', linestyle='--', linewidth=1.5, 
         label='Set 2 Numerical')
 
-ax.set_title('Parameter Comparison: Conservative vs Volatile Assets', fontsize=14)
 ax.set_xlabel('Time (years)', fontsize=12)
 ax.set_ylabel('Stock Price (£)', fontsize=12)
 ax.legend(fontsize=10, loc='best')
@@ -122,7 +121,6 @@ fig_sp500, ax = plt.subplots(figsize=(10, 6))
 ax.plot(t_sp500, S_sp500_exact, color='black', linestyle='-', label='Exact Solution', linewidth=2)
 ax.plot(t_sp500, S_sp500_num, color='yellow', linestyle='--', label='Euler-Maruyama', linewidth=1.5)
 ax.axhline(y=S0_sp500, color='grey', linestyle=':', alpha=0.7, label='Starting Price')
-ax.set_title(f'S&P 500 GBM Simulation (a={a_sp500:.3f}, b={b_sp500:.3f})')
 ax.set_xlabel('Time (years)')
 ax.set_ylabel('S&P 500 Index ($)')
 ax.legend()
@@ -197,7 +195,6 @@ ax.plot(t_months, average_path, color='red', linewidth=2.5, label='Average Path'
 ax.plot(real_months, real_returns.values, color='black', linewidth=2.5, 
         label='Actual 2025 S&P 500', zorder=11, marker='', linestyle='-')
 
-ax.set_title('Monte Carlo Simulation: 1,000 S&P 500 Paths vs Actual 2025 Data', fontsize=14)
 ax.set_xlabel('t (months)', fontsize=12)
 ax.set_ylabel('Total Return (%)', fontsize=12)
 ax.legend(fontsize=11)
@@ -212,4 +209,5 @@ plt.show()
 
 print("MC Sim Complete")
 print("\nThe actual 2025 S&P 500 performance has been overlaid on the simulated distribution, validating the GBM model's ability to capture real market behaviour within its probability envelope.")
+
 
