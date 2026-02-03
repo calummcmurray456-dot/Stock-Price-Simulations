@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import yfinance as yf
 
-np.random.seed(42)
-
 S0 = 100
 T = 1.0
 N = 252
@@ -214,3 +212,4 @@ plt.show()
 
 print("MC Sim Complete")
 print("\nThe actual 2025 S&P 500 performance has been overlaid on the simulated distribution, validating the GBM model's ability to capture real market behaviour within its probability envelope.")
+
