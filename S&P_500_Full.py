@@ -11,6 +11,7 @@ a1, b1 = 0.05, 0.1
 a2, b2 = 0.15, 0.3
 
 t = np.linspace(0, T, N+1)
+t_months = t * 12
 
 # Set 1
 np.random.seed(42)
@@ -53,19 +54,19 @@ print(f" Error: {abs(S2_num[-1]-S2_exact[-1])/S2_exact[-1]*100:.3f}%")
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Set 1 (blue shades)
-ax.plot(t, S1_exact, color='black', linestyle='-', linewidth=2, 
+ax.plot(t_months, S1_exact, color='blue', linestyle='-', linewidth=2, 
         label='Set 1 Exact (a=0.05, b=0.1)')
-ax.plot(t, S1_num, color='yellow', linestyle='--', linewidth=1.5, 
+ax.plot(t_months, S1_num, color='yellow', linestyle='--', linewidth=1.5, 
         label='Set 1 Numerical')
 
 # Set 2 (red/orange shades)
-ax.plot(t, S2_exact, color='red', linestyle='-', linewidth=2, 
+ax.plot(t_months, S2_exact, color='green', linestyle='-', linewidth=2, 
         label='Set 2 Exact (a=0.15, b=0.3)')
-ax.plot(t, S2_num, color='blue', linestyle='--', linewidth=1.5, 
+ax.plot(t_months, S2_num, color='red', linestyle='--', linewidth=1.5, 
         label='Set 2 Numerical')
 
-ax.set_xlabel('Time (years)', fontsize=12)
-ax.set_ylabel('Stock Price (£)', fontsize=12)
+ax.set_xlabel('Time (months)', fontsize=18)
+ax.set_ylabel('Stock Price (£)', fontsize=18)
 ax.legend(fontsize=10, loc='best')
 ax.grid(True, alpha=0.3)
 
@@ -96,6 +97,7 @@ T_sp500 = 1.0
 N_sp500 = 252
 dt_sp500 = T_sp500 / N_sp500
 t_sp500 = np.linspace(0, T_sp500, N_sp500+1)
+t_sp500_months  = t_sp500 * 12
 
 np.random.seed(123)
 dW_sp500 = np.sqrt(dt_sp500) * np.random.normal(0, 1, N_sp500)
@@ -118,11 +120,11 @@ print(f"  Error: {abs(S_sp500_num[-1]-S_sp500_exact[-1])/S_sp500_exact[-1]*100:.
 
 # Plot S&P 500 simulation
 fig_sp500, ax = plt.subplots(figsize=(10, 6))
-ax.plot(t_sp500, S_sp500_exact, color='black', linestyle='-', label='Exact Solution', linewidth=2)
-ax.plot(t_sp500, S_sp500_num, color='yellow', linestyle='--', label='Euler-Maruyama', linewidth=1.5)
+ax.plot(t_sp500_months, S_sp500_exact, color='black', linestyle='-', label='Exact Solution', linewidth=2)
+ax.plot(t_sp500_months, S_sp500_num, color='yellow', linestyle='--', label='Euler-Maruyama', linewidth=1.5)
 ax.axhline(y=S0_sp500, color='grey', linestyle=':', alpha=0.7, label='Starting Price')
-ax.set_xlabel('Time (years)')
-ax.set_ylabel('S&P 500 Index ($)')
+ax.set_xlabel('Time (months)', fontsize=18)
+ax.set_ylabel('S&P 500 Index ($)', fontsize=18)
 ax.legend()
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
@@ -195,8 +197,8 @@ ax.plot(t_months, average_path, color='red', linewidth=2.5, label='Average Path'
 ax.plot(real_months, real_returns.values, color='black', linewidth=2.5, 
         label='Actual 2025 S&P 500', zorder=11, marker='', linestyle='-')
 
-ax.set_xlabel('t (months)', fontsize=12)
-ax.set_ylabel('Total Return (%)', fontsize=12)
+ax.set_xlabel('Time (months)', fontsize=18)
+ax.set_ylabel('Total Return (%)', fontsize=18)
 ax.legend(fontsize=11)
 ax.grid(True, alpha=0.3)
 ax.axhline(y=0, color='grey', linestyle='--', alpha=0.5)
@@ -209,5 +211,3 @@ plt.show()
 
 print("MC Sim Complete")
 print("\nThe actual 2025 S&P 500 performance has been overlaid on the simulated distribution, validating the GBM model's ability to capture real market behaviour within its probability envelope.")
-
-
