@@ -53,21 +53,22 @@ print(f" Error: {abs(S2_num[-1]-S2_exact[-1])/S2_exact[-1]*100:.3f}%")
 
 fig, ax = plt.subplots(figsize=(10, 6))
 
-# Set 1 (blue shades)
-ax.plot(t_months, S1_exact, color='blue', linestyle='-', linewidth=2, 
+# Set 1 black / lightblue
+ax.plot(t_months, S1_exact, color='black', linestyle='-', linewidth=3, 
         label='Set 1 Exact (a=0.05, b=0.1)')
-ax.plot(t_months, S1_num, color='yellow', linestyle='--', linewidth=1.5, 
+ax.plot(t_months, S1_num, color='lightblue', linestyle='--', linewidth=2.5, 
         label='Set 1 Numerical')
 
-# Set 2 (red/orange shades)
-ax.plot(t_months, S2_exact, color='green', linestyle='-', linewidth=2, 
+# Set 2 brown / orange
+ax.plot(t_months, S2_exact, color='brown', linestyle='-', linewidth=3, 
         label='Set 2 Exact (a=0.15, b=0.3)')
-ax.plot(t_months, S2_num, color='red', linestyle='--', linewidth=1.5, 
+ax.plot(t_months, S2_num, color='orange', linestyle='--', linewidth=2.5, 
         label='Set 2 Numerical')
 
 ax.set_xlabel('Time (months)', fontsize=18)
 ax.set_ylabel('Stock Price (£)', fontsize=18)
-ax.legend(fontsize=10, loc='best')
+ax.legend(fontsize=14, loc='best')
+ax.tick_params(axis='both', labelsize=18)
 ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
@@ -92,7 +93,7 @@ print(f"  Drift (a): {a_sp500:.4f} ({a_sp500*100:.2f}% annual return)")
 print(f"  Volatility (b): {b_sp500:.4f} ({b_sp500*100:.2f}% annual volatility)")
 
 # Simulate forward one year using calibrated parameters
-S0_sp500 = prices.iloc[-1].item()  # Also use .item() here
+S0_sp500 = prices.iloc[-1].item() 
 T_sp500 = 1.0
 N_sp500 = 252
 dt_sp500 = T_sp500 / N_sp500
@@ -125,11 +126,13 @@ ax.plot(t_sp500_months, S_sp500_num, color='yellow', linestyle='--', label='Eule
 ax.axhline(y=S0_sp500, color='grey', linestyle=':', alpha=0.7, label='Starting Price')
 ax.set_xlabel('Time (months)', fontsize=18)
 ax.set_ylabel('S&P 500 Index ($)', fontsize=18)
-ax.legend()
+ax.tick_params(axis='both', labelsize=18)
+ax.legend(fontsize = 18)
 ax.grid(True, alpha=0.3)
 plt.tight_layout()
+plt.savefig('S&P_500_Simulation.pdf', dpi=1000, bbox_inches='tight')
+print("Saved: S&P_500_Simulation.pdf")
 plt.show()
-
 
 # Monte Carlo
 print("Monte Carlo Simulatio With Real S&P 500 Data")
@@ -184,12 +187,12 @@ print(f"  Actual S&P 500 return: {real_returns.iloc[-1].item():.2f}%")
 
 # Check if actual return is within simulated range
 within_range = np.min(all_returns[:, -1]) <= real_returns.iloc[-1].item() <= np.max(all_returns[:, -1])
-print(f"\nValidation: Actual return {'is' if within_range else 'is not'} within simulated range " if within_range else "✗")
+print(f"\nValidation: Actual return {'is' if within_range else 'is not'} within simulated range " if within_range else "x")
 
 fig_mc, ax = plt.subplots(figsize=(12, 7))
 
 for j in range(M):
-    ax.plot(t_months, all_returns[j, :], color='blue', alpha=0.1, linewidth=0.5)
+    ax.plot(t_months, all_returns[j, :], color='lightblue', alpha=0.25, linewidth=0.5)
 
 ax.plot(t_months, average_path, color='red', linewidth=2.5, label='Average Path', zorder=10)
 
@@ -199,7 +202,8 @@ ax.plot(real_months, real_returns.values, color='black', linewidth=2.5,
 
 ax.set_xlabel('Time (months)', fontsize=18)
 ax.set_ylabel('Total Return (%)', fontsize=18)
-ax.legend(fontsize=11)
+ax.legend(fontsize=18)
+ax.tick_params(axis='both', labelsize=18)
 ax.grid(True, alpha=0.3)
 ax.axhline(y=0, color='grey', linestyle='--', alpha=0.5)
 
@@ -207,7 +211,6 @@ plt.tight_layout()
 plt.savefig('monte_carlo.pdf', dpi=1000, bbox_inches='tight')
 print("\nSaved monte_carlo.pdf")
 plt.show()
-
 
 print("MC Sim Complete")
 print("\nThe actual 2025 S&P 500 performance has been overlaid on the simulated distribution, validating the GBM model's ability to capture real market behaviour within its probability envelope.")
