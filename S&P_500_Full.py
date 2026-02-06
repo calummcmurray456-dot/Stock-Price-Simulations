@@ -53,10 +53,10 @@ print(f" Error: {abs(S2_num[-1]-S2_exact[-1])/S2_exact[-1]*100:.3f}%")
 
 fig, ax = plt.subplots(figsize=(10, 6))
 
-# Set 1 black / lightblue
+# Set 1 black / magenta
 ax.plot(t_months, S1_exact, color='black', linestyle='-', linewidth=3, 
         label='Set 1 Exact (a=0.05, b=0.1)')
-ax.plot(t_months, S1_num, color='lightblue', linestyle='--', linewidth=2.5, 
+ax.plot(t_months, S1_num, color='magenta', linestyle='--', linewidth=2.5, 
         label='Set 1 Numerical')
 
 # Set 2 brown / orange
@@ -122,7 +122,7 @@ print(f"  Error: {abs(S_sp500_num[-1]-S_sp500_exact[-1])/S_sp500_exact[-1]*100:.
 # Plot S&P 500 simulation
 fig_sp500, ax = plt.subplots(figsize=(10, 6))
 ax.plot(t_sp500_months, S_sp500_exact, color='black', linestyle='-', label='Exact Solution', linewidth=2)
-ax.plot(t_sp500_months, S_sp500_num, color='yellow', linestyle='--', label='Euler-Maruyama', linewidth=1.5)
+ax.plot(t_sp500_months, S_sp500_num, color='red', linestyle='--', label='Euler-Maruyama', linewidth=1.5)
 ax.axhline(y=S0_sp500, color='grey', linestyle=':', alpha=0.7, label='Starting Price')
 ax.set_xlabel('Time (months)', fontsize=18)
 ax.set_ylabel('S&P 500 Index ($)', fontsize=18)
@@ -192,9 +192,13 @@ print(f"\nValidation: Actual return {'is' if within_range else 'is not'} within 
 fig_mc, ax = plt.subplots(figsize=(12, 7))
 
 for j in range(M):
-    ax.plot(t_months, all_returns[j, :], color='lightblue', alpha=0.25, linewidth=0.5)
-
-ax.plot(t_months, average_path, color='red', linewidth=2.5, label='Average Path', zorder=10)
+    if j == 0: 
+        ax.plot(t_months, all_returns[j, :], color='magenta', alpha=0.1, linewidth=0.5, label = 'Monte Carlo Simulations (n=1000)')
+    else: 
+        ax.plot(t_months, all_returns[j, :], color='magenta', alpha=0.1, linewidth=0.5)
+    
+    
+ax.plot(t_months, average_path, color='blue', linewidth=2.5, label='Average Path', zorder=10)
 
 # Plot Real S&P 500 data
 ax.plot(real_months, real_returns.values, color='black', linewidth=2.5, 
